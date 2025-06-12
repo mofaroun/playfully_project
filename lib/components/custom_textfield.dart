@@ -13,7 +13,8 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 10.0, left: 5, right: 5),
+      padding: EdgeInsets.only(top: 10.0, left: 8, right: 8),
+      // padding: EdgeInsets.symmetric(horizontal: 4, vertical: 5),
       child: TextField(
         style: TextStyle(color: aWhite),
         obscureText: isPw,

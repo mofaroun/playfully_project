@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:playfully_app/components/custom_elevated_button.dart';
 import 'package:playfully_app/components/custom_textfield.dart';
+import 'package:playfully_app/pages/register_page.dart';
 import 'package:playfully_app/styles/colors.dart';
 
 class SignInPage extends StatelessWidget {
@@ -41,7 +45,7 @@ class SignInPage extends StatelessWidget {
               children: [
                 // Username Field
                 CustomTextField(
-                  textHint: "Username",
+                  textHint: "Email",
                 ),
                 // Password Field
                 CustomTextField(
@@ -50,7 +54,9 @@ class SignInPage extends StatelessWidget {
                 ),
 
                 // Login Button
-                SizedBox(height: 15,),
+                SizedBox(
+                  height: 15,
+                ),
 
                 CustomElevatedButton(
                   buttonStyle: buttonLabel,
@@ -58,7 +64,9 @@ class SignInPage extends StatelessWidget {
                   pageNavigator: () => debugPrint('Implement Login Here'),
                 ),
                 // Forgotten Password
-                SizedBox(height: 5,),
+                SizedBox(
+                  height: 5,
+                ),
                 Text(
                   "Forgotten Password?",
                   style: TextStyle(color: forgotColor),
@@ -67,12 +75,26 @@ class SignInPage extends StatelessWidget {
             ),
 
             // Havent signed up yet text
-            Column(children: [
-              Text("Haven't signed up yet?", style: TextStyle(color: forgotColor),),
-            Text("Create an account", style: TextStyle(color: primaryRed))
-            ],),
+            Column(
+              children: [
+                Text(
+                  "Haven't signed up yet?",
+                  style: TextStyle(color: forgotColor),
+                ),
+                GestureDetector(
+                    child: Text("Create an account",
+                        style: TextStyle(color: primaryRed)),
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(
+                        CupertinoPageRoute(builder: (_) => RegisterPage()),
+                      );
+                    })
+              ],
+            ),
 
-            SizedBox(height: 10,)
+            SizedBox(
+              height: 10,
+            )
             // Create an account
           ],
         ),
