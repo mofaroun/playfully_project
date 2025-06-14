@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1016414856523",
+    "project_id": "playfully-9c53c",
+    "storage_bucket": "playfully-9c53c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016414856523:android:304e794b1205c7846c74ce",
+        "android_client_info": {
+          "package_name": "com.example.playfully_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJ24E2sZ8ADhti_yS6VNg5jU7qtXeZsP0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

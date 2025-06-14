@@ -61,7 +61,7 @@ class SignInPage extends StatelessWidget {
                 CustomElevatedButton(
                   buttonStyle: buttonLabel,
                   buttonText: "Login",
-                  pageNavigator: () => debugPrint('Implement Login Here'),
+                  onTap: () => debugPrint('Implement Login Here'),
                 ),
                 // Forgotten Password
                 SizedBox(

@@ -4,20 +4,25 @@ import 'package:playfully_app/styles/colors.dart';
 class CustomTextField extends StatelessWidget {
   final String textHint;
   final bool isPw;
+  final TextEditingController? textController;
+
   const CustomTextField({
     super.key,
     required this.textHint,
     this.isPw = false,
+    this.textController,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
+      
       padding: EdgeInsets.only(top: 10.0, left: 8, right: 8),
       // padding: EdgeInsets.symmetric(horizontal: 4, vertical: 5),
       child: TextField(
         style: TextStyle(color: aWhite),
         obscureText: isPw,
+        controller: textController,
         decoration: InputDecoration(
           hintText: textHint,
           enabledBorder: OutlineInputBorder(

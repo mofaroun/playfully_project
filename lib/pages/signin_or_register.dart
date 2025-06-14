@@ -16,8 +16,8 @@ class SignOrRegister extends StatelessWidget {
     VoidCallback gotoPage(bool login) {
       return () {
         // Navigator.pushNamed(context, SignInPage.id);
-        Navigator.of(context)
-            .push(CupertinoPageRoute(builder: (_) => login ? SignInPage() : RegisterPage()));
+        Navigator.of(context).push(CupertinoPageRoute(
+            builder: (_) => login ? SignInPage() : RegisterPage()));
       };
     }
 
@@ -71,13 +71,13 @@ class SignOrRegister extends StatelessWidget {
                 buttonStyle: buttonLabel,
                 buttonText: "Login",
                 login: true,
-                pageNavigator: gotoPage(true),
+                onTap: gotoPage(true),
               ),
               CustomElevatedButton(
                 buttonStyle: abuttonLabel,
                 buttonText: "Signup",
                 login: false,
-                pageNavigator: gotoPage(false),
+                onTap: gotoPage(false),
               ),
 
               // Privacylabel

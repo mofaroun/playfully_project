@@ -6,14 +6,14 @@ class CustomElevatedButton extends StatelessWidget {
   final TextStyle buttonStyle;
   final String buttonText;
   final bool login;
-  final VoidCallback? pageNavigator;
+  final VoidCallback? onTap;
 
   const CustomElevatedButton(
       {super.key,
       required this.buttonStyle,
       required this.buttonText,
       this.login = true,
-      this.pageNavigator});
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class CustomElevatedButton extends StatelessWidget {
             foregroundColor: login ? aWhite : primaryRed,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),
-        onPressed: pageNavigator,
+        onPressed: onTap,
         child: Container(
           width: MediaQuery.of(context).size.width,
           alignment: Alignment.center,
