@@ -2,9 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:playfully_app/components/custom_button.dart';
 import 'package:playfully_app/firebase_options.dart';
+import 'package:playfully_app/pages/browse_page.dart';
 import 'package:playfully_app/pages/register_page.dart';
 import 'package:playfully_app/pages/signin_or_register.dart';
 import 'package:playfully_app/pages/signin_page.dart';
+import 'package:playfully_app/services/auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,8 +26,10 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: SignOrRegister.id,
+      initialRoute: AuthPage.id,
       routes: {
+        BrowsePage.id : (context) => BrowsePage(),
+        AuthPage.id: (context) => AuthPage(),
         SignOrRegister.id: (context) => SignOrRegister(),
         SignInPage.id: (context) => SignInPage(),
         RegisterPage.id: (context) => RegisterPage(),

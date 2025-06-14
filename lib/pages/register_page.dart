@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:playfully_app/components/custom_elevated_button.dart';
 import 'package:playfully_app/components/custom_textfield.dart';
 import 'package:playfully_app/components/display_message.dart';
+import 'package:playfully_app/pages/browse_page.dart';
 import 'package:playfully_app/pages/signin_page.dart';
 import 'package:playfully_app/styles/colors.dart';
 
@@ -18,7 +19,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController emailController = TextEditingController();
-
+  final TextEditingController firstName = TextEditingController();
   final TextEditingController pwController = TextEditingController();
 
   final TextEditingController confirmPwController = TextEditingController();
@@ -43,10 +44,17 @@ class _RegisterPageState extends State<RegisterPage> {
         UserCredential? userCred = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(
                 email: emailController.text, password: pwController.text);
+
+        await userCred.user?.updateDisplayName(firstName.text);
         Navigator.pop(context);
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          BrowsePage.id,
+          (route) => false, // ✅ clears the entire navigation stack
+        );
       } catch (e) {
-        Navigator.pop(context);
         debugPrint(e.toString());
+        Navigator.pop(context);
+
         displayMessage(e.toString(), context);
       }
     }
@@ -73,82 +81,88 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
       body: SafeArea(
           child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              "PlayFully.",
-              style: TextStyle(
-                  fontSize: 50, color: aWhite, fontWeight: FontWeight.bold),
-            ),
-            Column(
-              children: [
-                // Username Field
-                // Row(children: [
-                //   Expanded(child: CustomTextField(textHint: "First Name")),
-                //   Expanded(child: CustomTextField(textHint: "Last Name"))
-                // ],),
-                CustomTextField(
-                  textHint: "Email",
-                  textController: emailController,
-                ),
-                // Password Field
-                CustomTextField(
-                  textHint: "Password",
-                  isPw: true,
-                  textController: pwController,
-                ),
-                CustomTextField(
-                  textHint: "Confirm Password",
-                  isPw: true,
-                  textController: confirmPwController,
-                ),
-
-                // Login Button
-                SizedBox(
-                  height: 15,
-                ),
-
-                CustomElevatedButton(
-                  buttonStyle: buttonLabel,
-                  buttonText: "Create Account",
-                  onTap: () {
-                    debugPrint('Implement Account Creation Here');
-                    registerUser();
-                  },
-                ),
-                // Forgotten Password
-                SizedBox(
-                  height: 10,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Already have an account?",
-                      style: TextStyle(color: forgotColor),
-                    ),
-                    GestureDetector(
-                      child: Text(
-                        " Log in.",
-                        style: TextStyle(color: primaryRed),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                "PlayFully.",
+                style: TextStyle(
+                    fontSize: 50, color: aWhite, fontWeight: FontWeight.bold),
+              ),
+              Column(
+                children: [
+                  // Username Field
+                  // Row(children: [
+                  //   Expanded(child: CustomTextField(textHint: "First Name")),
+                  //   Expanded(child: CustomTextField(textHint: "Last Name"))
+                  // ],),
+                  CustomTextField(
+                    textHint: "First Name",
+                    textController: firstName,
+                  ),
+                  CustomTextField(
+                    textHint: "Email",
+                    textController: emailController,
+                  ),
+                  // Password Field
+                  CustomTextField(
+                    textHint: "Password",
+                    isPw: true,
+                    textController: pwController,
+                  ),
+                  CustomTextField(
+                    textHint: "Confirm Password",
+                    isPw: true,
+                    textController: confirmPwController,
+                  ),
+          
+                  // Login Button
+                  SizedBox(
+                    height: 15,
+                  ),
+          
+                  CustomElevatedButton(
+                    buttonStyle: buttonLabel,
+                    buttonText: "Create Account",
+                    onTap: () {
+                      debugPrint('Implement Account Creation Here');
+                      registerUser();
+                    },
+                  ),
+                  // Forgotten Password
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Already have an account?",
+                        style: TextStyle(color: forgotColor),
                       ),
-                      onTap: () {
-                        Navigator.of(context).pushReplacement(
-                          CupertinoPageRoute(builder: (_) => SignInPage()),
-                        );
-                      },
-                    )
-                  ],
-                )
-              ],
-            ),
-
-            SizedBox(
-              height: 10,
-            )
-            // Create an account
-          ],
+                      GestureDetector(
+                        child: Text(
+                          " Log in.",
+                          style: TextStyle(color: primaryRed),
+                        ),
+                        onTap: () {
+                          Navigator.of(context).pushReplacement(
+                            CupertinoPageRoute(builder: (_) => SignInPage()),
+                          );
+                        },
+                      )
+                    ],
+                  )
+                ],
+              ),
+          
+              SizedBox(
+                height: 10,
+              )
+              // Create an account
+            ],
+          ),
         ),
       )),
     );

@@ -1,16 +1,48 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:playfully_app/components/custom_elevated_button.dart';
 import 'package:playfully_app/components/custom_textfield.dart';
+import 'package:playfully_app/components/display_message.dart';
 import 'package:playfully_app/pages/register_page.dart';
 import 'package:playfully_app/styles/colors.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   static String id = "signin_page";
 
   const SignInPage({super.key});
+
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  final TextEditingController emailController = TextEditingController();
+
+  final TextEditingController pwController = TextEditingController();
+
+  void login() async {
+    showDialog(
+        context: context,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ));
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text, password: pwController.text);
+      Navigator.pop(context);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        'browse_page',
+        (route) => false,
+      );
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      displayMessage(e.toString(), context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +78,13 @@ class SignInPage extends StatelessWidget {
                 // Username Field
                 CustomTextField(
                   textHint: "Email",
+                  textController: emailController,
                 ),
                 // Password Field
                 CustomTextField(
                   textHint: "Password",
                   isPw: true,
+                  textController: pwController,
                 ),
 
                 // Login Button
@@ -61,7 +95,9 @@ class SignInPage extends StatelessWidget {
                 CustomElevatedButton(
                   buttonStyle: buttonLabel,
                   buttonText: "Login",
-                  onTap: () => debugPrint('Implement Login Here'),
+                  onTap: () {
+                    login();
+                  },
                 ),
                 // Forgotten Password
                 SizedBox(

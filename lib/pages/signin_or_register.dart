@@ -7,10 +7,16 @@ import 'package:playfully_app/pages/register_page.dart';
 import 'package:playfully_app/styles/colors.dart';
 import 'signin_page.dart';
 
-class SignOrRegister extends StatelessWidget {
+class SignOrRegister extends StatefulWidget {
   static String id = "signin_or_register";
   const SignOrRegister({super.key});
 
+  @override
+  State<SignOrRegister> createState() => _SignOrRegisterState();
+}
+
+class _SignOrRegisterState extends State<SignOrRegister> {
+  
   @override
   Widget build(BuildContext context) {
     VoidCallback gotoPage(bool login) {
